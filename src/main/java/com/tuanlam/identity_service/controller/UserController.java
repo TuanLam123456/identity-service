@@ -1,5 +1,6 @@
 package com.tuanlam.identity_service.controller;
 
+import com.tuanlam.identity_service.dto.request.ApiResponse;
 import com.tuanlam.identity_service.dto.request.UserCreationRequest;
 import com.tuanlam.identity_service.dto.request.UserUpdateRequest;
 import com.tuanlam.identity_service.entity.User;
@@ -17,8 +18,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request){
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+
+        apiResponse.setResult(userService.createUser(request));
+
+        return apiResponse;
     }
 
     @GetMapping

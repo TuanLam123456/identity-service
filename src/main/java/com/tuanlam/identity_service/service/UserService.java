@@ -3,6 +3,8 @@ package com.tuanlam.identity_service.service;
 import com.tuanlam.identity_service.dto.request.UserCreationRequest;
 import com.tuanlam.identity_service.dto.request.UserUpdateRequest;
 import com.tuanlam.identity_service.entity.User;
+import com.tuanlam.identity_service.excpetion.AppException;
+import com.tuanlam.identity_service.excpetion.ErrorCode;
 import com.tuanlam.identity_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class UserService {
         User user = new User();
 
         if (userRepository.existsByUsername(request.getUsername()))
-            throw new RuntimeException("User existed");
+            throw new AppException(ErrorCode.USER_EXISTED);
 
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
